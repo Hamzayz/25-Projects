@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit Converter</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>🔄 Unit Converter</h1>
+        <p class="subtitle">Convert between different units easily</p>
+        
+        <form method="POST" id="converter-form">
+            <!-- Category Selection -->
+            <div class="form-group">
+                <label for="category">Category:</label>
+                <select name="category" id="category" onchange="updateUnits()">
+                    <option value="length">Length</option>
+                    <option value="weight">Weight</option>
+                    <option value="temperature">Temperature</option>
+                </select>
+            </div>
+            
+            <!-- Value Input -->
+            <div class="form-group">
+                <label for="value">Value:</label>
+                <input type="number" 
+                       step="any" 
+                       name="value" 
+                       id="value" 
+                       placeholder="Enter value" 
+                       required>
+            </div>
+            
+            <!-- From Unit -->
+            <div class="form-group">
+                <label for="from_unit">From:</label>
+                <select name="from_unit" id="from_unit">
+                    <!-- Options will be populated by JavaScript -->
+                </select>
+            </div>
+            
+            <!-- To Unit -->
+            <div class="form-group">
+                <label for="to_unit">To:</label>
+                <select name="to_unit" id="to_unit">
+                    <!-- Options will be populated by JavaScript -->
+                </select>
+            </div>
+            
+            <!-- Convert Button -->
+            <button type="submit" class="convert-btn">Convert</button>
+        </form>
+        
+        <!-- Result Display -->
+        {% if result %}
+        <div class="result success">
+            <h3>✅ Result:</h3>
+            <p>{{ result }}</p>
+        </div>
+        {% endif %}
+        
+        {% if error %}
+        <div class="result error">
+            <h3>❌ Error:</h3>
+            <p>{{ error }}</p>
+        </div>
+        {% endif %}
+    </div>
+
+    <script>
+        // Unit options for each category
+        const units = {
+            length: ['km', 'm', 'cm', 'mm', 'mile', 'yard', 'foot', 'inch'],
+            weight: ['kg', 'g', 'mg', 'ton', 'lb', 'oz'],
+            temperature: ['C', 'F', 'K']
+        };
+        
+        // Update unit dropdowns based on category
+        function updateUnits() {
+            const category = document.getElementById('category').value;
+            const fromUnit = document.getElementById('from_unit');
+            const toUnit = document.getElementById('to_unit');
+            
+            // Clear existing options
+            fromUnit.innerHTML = '';
+            toUnit.innerHTML = '';
+            
+            // Add new options
+            units[category].forEach(unit => {
+                fromUnit.innerHTML += `<option value="${unit}">${unit}</option>`;
+                toUnit.innerHTML += `<option value="${unit}">${unit}</option>`;
+            });
+            
+            // Set different default for 'to' unit
+            if (units[category].length > 1) {
+                toUnit.selectedIndex = 1;
+            }
+        }
+        
+        // Initialize units on page load
+        updateUnits();
+    </script>
+</body>
+</html>
+
