@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Article - Personal Blog{% endblock %}
+
+{% block content %}
+<div class="header">
+    <div class="route-info">/edit/{{ article.id }}</div>
+    <h1>Update Article</h1>
+</div>
+
+<div class="card">
+    <form method="POST">
+        <div class="form-group">
+            <label for="title">Article Title</label>
+            <input type="text" id="title" name="title" value="{{ article.title }}" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="date">Publishing Date</label>
+            <input type="date" id="date" name="date" value="{{ article.date }}" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="content">Content</label>
+            <textarea id="content" name="content" required>{{ article.content }}</textarea>
+        </div>
+        
+        <div style="display: flex; gap: 10px;">
+            <button type="submit" class="btn btn-primary">Update</button>
+            <a href="{{ url_for('admin') }}" class="btn">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
+```
+
+## 10. **requirements.txt**
+```
+Flask==3.0.0
+```
+
+---
+
+## 📁 Folder Structure:
+```
+personal_blog/
+├── app.py
+├── requirements.txt
+├── articles/           (create this folder)
+├── static/
+│   └── css/
+│       └── style.css
+└── templates/
+    ├── base.html
+    ├── home.html
+    ├── article.html
+    ├── login.html
+    ├── admin.html
+    ├── new_article.html
+    └── edit_article.html

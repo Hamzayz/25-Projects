@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}{{ article.title }} - Personal Blog{% endblock %}
+
+{% block content %}
+<div class="header">
+    <div class="route-info">/article/{{ article.id }}</div>
+    <h1>{{ article.title }}</h1>
+    <div class="article-date" style="margin-top: 10px;">{{ article.date }}</div>
+</div>
+
+<div class="card">
+    <div class="article-content">{{ article.content }}</div>
+</div>
+
+<div style="text-align: center; margin-top: 20px;">
+    <a href="{{ url_for('home') }}" class="btn">← Back to Home</a>
+</div>
+{% endblock %}
