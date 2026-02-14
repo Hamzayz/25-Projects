@@ -72,5 +72,7 @@ if __name__ == "__main__":
     if alerts:
         print("\n".join(alerts))
         # send_email(alerts, location)  # Uncomment to enable email
+    else:
+        print(f"No weather alerts for {location} today")
 
 
